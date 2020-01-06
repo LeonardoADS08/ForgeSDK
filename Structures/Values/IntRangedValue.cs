@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+Developer       : Leonardo Arteaga dos Santos
+First release   : 06/01/2020
+File            : Structures/Values/IntRangedValue.cs
+Revision        : 1.0
+Changelog       :   
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +14,9 @@ using System.Threading.Tasks;
 
 namespace ForgeSDK.Structures.Values
 {
+    /// <summary>
+    /// A <c>RangedValue</c> implementation for <c>integer</c> ranged values
+    /// </summary>
     public class IntRangedValue : RangedValue<int>
     {
         public override RangeOption InRange(int value)

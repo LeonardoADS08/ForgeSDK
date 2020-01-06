@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace ForgeSDK.Structures
 {
     /// <summary>
-    /// An pair with two atributes with the same data type
+    /// A pair with two atributes with the same data type
     /// </summary>
     [Serializable]
     public struct Pair<T>
@@ -31,7 +31,7 @@ namespace ForgeSDK.Structures
     }
 
     /// <summary>
-    /// An pair with two atributes with different data types
+    /// A pair with two atributes with different data types
     /// </summary>
     [Serializable]
     public struct Pair<T, G>

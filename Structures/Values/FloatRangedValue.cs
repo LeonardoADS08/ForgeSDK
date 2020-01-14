@@ -19,6 +19,20 @@ namespace ForgeSDK.Structures.Values
     /// </summary>
     public class FloatRangedValue : RangedValue<float>
     {
+        public FloatRangedValue()
+        {
+            _range.x = 0;
+            _range.y = 100;
+            _value = 50;
+        }
+
+        public FloatRangedValue(float value, float minValue, float maxValue)
+        {
+            _range.x = minValue;
+            _range.y = maxValue;
+            _value = value;
+        }
+
         public override RangeOption InRange(float value)
         {
             if (value > MaxValue)

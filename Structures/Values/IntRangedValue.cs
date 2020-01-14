@@ -19,6 +19,21 @@ namespace ForgeSDK.Structures.Values
     /// </summary>
     public class IntRangedValue : RangedValue<int>
     {
+
+        public IntRangedValue()
+        {
+            _range.x = 0;
+            _range.y = 100;
+            _value = 50;
+        }
+
+        public IntRangedValue(int value, int minValue, int maxValue)
+        {
+            _range.x = minValue;
+            _range.y = maxValue;
+            _value = value;
+        }
+
         public override RangeOption InRange(int value)
         {
             if (value > MaxValue)

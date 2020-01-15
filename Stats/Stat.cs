@@ -38,6 +38,5 @@ namespace ForgeSDK.Stats
 
         public void ApplyEffect(IEffect effect) => _effects.Add(effect);
 
-
     }
 }

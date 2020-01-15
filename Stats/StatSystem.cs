@@ -11,6 +11,7 @@ namespace ForgeSDK.Stats
     public class StatSystem : MonoBehaviour
     {
         private Dictionary<string, Stat> _stats = new Dictionary<string, Stat>();
+        public List<Stat> Stats => new List<Stat>(_stats.Values);
 
         public StatSystem() { }
 

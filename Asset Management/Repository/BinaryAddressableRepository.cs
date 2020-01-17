@@ -51,6 +51,8 @@ namespace ForgeSDK.AssetManagement.Repository
         {
             try
             {
+                if (!Directory.Exists(_fileLocation)) return false;
+
                 IFormatter formatter = new BinaryFormatter();
                 Stream readStream = new FileStream(_fileLocation, FileMode.Open, FileAccess.Read, FileShare.Read);
                 _repository = (Dictionary<string, AddressableRepositoryItem>)formatter.Deserialize(readStream);

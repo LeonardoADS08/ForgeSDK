@@ -1,15 +1,66 @@
-﻿using System;
+﻿using ForgeSDK.Tools;
+using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.ForgeSDK.Attributes
+namespace ForgeSDK.Attributes
 {
-    
+
     public class AttributeSystem : MonoBehaviour
     {
-        private Dictionary<string, bool> _attributes;
+#if UNITY_EDITOR
+        private IEnumerable<string> _availableAttributes => AttributeRepository.Instance.GetAllElements()
+                                                                                        .Select(attribute => attribute.Name)
+                                                                                        .Except(Attributes.Select(attribute => attribute.Name));
+
+        [ShowInInspector, HideLabel, ValueDropdown("_availableAttributes", DropdownTitle = "Attributes availables"), TabGroup("New attribute", order: 1)]
+        private string _newAttribute = string.Empty;
+
+        [Button("Add Attribute"), TabGroup("New attribute", order: 1)]
+        private void AddAttribute()
+        {
+            if (!string.IsNullOrWhiteSpace(_newAttribute) && !Attributes.Exists(attribute => attribute.Name == _newAttribute))
+            {
+                Attributes.Add(new Attribute(_newAttribute, Vector2Int.zero, new AttributeInfo()));
+                _newAttribute = string.Empty;
+            }
+        }
+#endif
+
+        private Dictionary<string, Attribute> _attributes = new Dictionary<string, Attribute>();
+
+        [TabGroup("Attribute", order: 0), TableList(AlwaysExpanded = true, HideToolbar = true)]
+        public List<Attribute> Attributes = new List<Attribute>();
+
+        public T GetAttribute<T>(string attributeName)
+        {
+            if (_attributes.ContainsKey(attributeName))
+            {
+#if UNITY_EDITOR
+                if (typeof(T) != _attributes[attributeName].Value.GetType())
+                {
+                    string message = string.Format("Trying to get attribute: {0} of type {1} as a {2} on: {3}", attributeName, typeof(T).Name, _attributes[attributeName].Value.GetType().Name, gameObject.name);
+                    Debug.LogError(message);
+                    Logs.SaveLog(message, Logs.GetDirection(), logName: "Editor debugging");
+                }
+#endif
+                return (T)_attributes[attributeName].Value;
+            }
+            else
+            {
+                string message = string.Format("Trying to get attribute: {0}, but it doesn't exists on this attribute system: {1}", attributeName, gameObject.name);
+#if UNITY_EDITOR
+                Debug.LogError(message);
+#else
+                Logs.SaveLog(message, Logs.GetDirection());
+#endif
+                return default(T);
+            }
+        }
+
     }
 }

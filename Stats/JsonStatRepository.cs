@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.ForgeSDK.Stats
+namespace ForgeSDK.Stats
 {
     public class JsonStatRepository : StatRepository
     {
@@ -20,7 +20,7 @@ namespace Assets.ForgeSDK.Stats
             {
                 using (StreamWriter writer = new StreamWriter(_fileLocation, false))
                 {
-                    string json = JsonConvert.SerializeObject(_stats);
+                    string json = JsonConvert.SerializeObject(new List<string>(_stats));
                     writer.Write(json);
                     writer.Flush();
                 }
@@ -39,6 +39,8 @@ namespace Assets.ForgeSDK.Stats
         {
             try
             {
+                if (!File.Exists(_fileLocation)) return false;
+
                 using (StreamReader reader = new StreamReader(_fileLocation))
                 {
                     string json = reader.ReadToEnd();

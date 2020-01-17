@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.ForgeSDK.Attributes
+namespace ForgeSDK.Attributes
 {
     public class JsonAttributeRepository : AttributeRepository
     {
@@ -20,7 +20,7 @@ namespace Assets.ForgeSDK.Attributes
             {
                 using (StreamWriter writer = new StreamWriter(_fileLocation, false))
                 {
-                    string json = JsonConvert.SerializeObject(_attributes);
+                    string json = JsonConvert.SerializeObject(_attributes.ToList());
                     writer.Write(json);
                     writer.Flush();
                 }
@@ -39,18 +39,20 @@ namespace Assets.ForgeSDK.Attributes
         {
             try
             {
+                if (!File.Exists(_fileLocation)) return false;
+
                 using (StreamReader reader = new StreamReader(_fileLocation))
                 {
                     string json = reader.ReadToEnd();
-                    var elements = JsonConvert.DeserializeObject<List<string>>(json);
+                    var elements = JsonConvert.DeserializeObject<List<AttributeInfo>>(json);
                     if (elements != null)
                     {
-                        _attributes = new HashSet<string>(elements);
+                        _attributes = new HashSet<AttributeInfo>(elements);
                         return true;
                     }
                     else
                     {
-                        _attributes = new HashSet<string>();
+                        _attributes = new HashSet<AttributeInfo>();
                         return false;
                     }
                 }

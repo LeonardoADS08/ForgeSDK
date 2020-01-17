@@ -1,4 +1,4 @@
-﻿using Assets.ForgeSDK.Attributes;
+﻿using ForgeSDK.Attributes;
 using ForgeSDK.Stats;
 using System;
 using System.Collections.Generic;

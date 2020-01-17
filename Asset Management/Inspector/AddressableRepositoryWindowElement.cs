@@ -7,7 +7,6 @@ Changelog       :
 
 */
 
-
 using ForgeSDK.AssetManagement.Repository;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
@@ -85,20 +84,15 @@ namespace ForgeSDK.AssetManagement
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         [ButtonGroup("Tools"), Button("Add"), ShowIf("_new")]
         public void Add()
         {
             var repo = AddressableRepository.Instance;
             repo.Add(new AddressableRepositoryItem(Key, Reference));
-            _new = repo.Save();
+            _new = !repo.Save();
+            if (!_new) _originalKey = Key;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         [ButtonGroup("Tools"), Button("Update"), HideIf("_new")]
         public void Update()
         {
@@ -112,9 +106,6 @@ namespace ForgeSDK.AssetManagement
             if (result != 0) _originalKey = Key;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         [ButtonGroup("Tools"), ShowIf("ExistsInRepository"), Button("Remove")]
         public void Remove()
         {

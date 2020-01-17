@@ -1,12 +1,13 @@
 ﻿using ForgeSDK.Extensions.Linq;
 using ForgeSDK.Repositories;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.ForgeSDK.Stats
+namespace ForgeSDK.Stats
 {
     public abstract class StatRepository : Repository<string>
     {
@@ -19,19 +20,28 @@ namespace Assets.ForgeSDK.Stats
                 if (_instance == null)
                 {
                     _instance = new JsonStatRepository();
-                    _instance.Load();
                 }
                 return _instance;
             }
         }
+
+        public static void PurgeInstance() => _instance = null;
         #endregion
 
-        protected HashSet<string> _stats;
+        protected HashSet<string> _stats = new HashSet<string>();
         protected override IEnumerable<string> _items => _stats;
+
+        public StatRepository()
+        {
+            Load();
+            var notExists = Stats.STATS.Except(_stats);
+            notExists.ForEach(stat => Add(stat));
+            Save();
+        }
 
         public override bool Add(string Element)
         {
-            if (Exists(Element))
+            if (!Exists(Element))
             {
                 _stats.Add(Element);
                 return true;

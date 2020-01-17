@@ -34,7 +34,7 @@ namespace ForgeSDK.AssetManagement
         /// <summary>
         /// The OdinEditorWindow is in the toolbar [ForgeAPI -> AssetManagement]
         /// </summary>
-        [MenuItem("ForgeAPI/Asset Management")]
+        [MenuItem("ForgeSDK/Asset Management")]
         public static void ShowWindow()
         {
             _instance = GetWindow<AddressableRepositoryWindow>("Addressable Repository");

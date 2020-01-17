@@ -56,6 +56,8 @@ namespace ForgeSDK.AssetManagement.Repository
         {
             try
             {
+                if (!File.Exists(_fileLocation)) return false;
+
                 using (StreamReader reader = new StreamReader(_fileLocation))
                 {
                     string json = reader.ReadToEnd();

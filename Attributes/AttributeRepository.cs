@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.ForgeSDK.Attributes
+namespace ForgeSDK.Attributes
 {
-    public abstract class AttributeRepository : Repository<string>
+    public abstract class AttributeRepository : Repository<AttributeInfo>
     {
         #region Singleton
         private static AttributeRepository _instance;
@@ -19,19 +19,32 @@ namespace Assets.ForgeSDK.Attributes
                 if (_instance == null)
                 {
                     _instance = new JsonAttributeRepository();
-                    _instance.Load();
                 }
                 return _instance;
             }
         }
+
+        public static void PurgeInstance() => _instance = null;
         #endregion
 
-        protected HashSet<string> _attributes;
-        protected override IEnumerable<string> _items => _attributes;
+        protected HashSet<AttributeInfo> _attributes = new HashSet<AttributeInfo>();
+        protected override IEnumerable<AttributeInfo> _items => _attributes;
 
-        public override bool Add(string Element)
+        public AttributeRepository()
         {
-            if (Exists(Element))
+            Load();
+            var notExists = Attributes.ATTRIBUTES.Select(att => att.Name).Except(_attributes.Select(att => att.Name));
+            Attributes.ATTRIBUTES.ForEach(att =>
+            {
+                if (notExists.Contains(att.Name))
+                    Add(att);
+            });
+            Save();
+        }
+
+        public override bool Add(AttributeInfo Element)
+        {
+            if (!Exists(Element))
             {
                 _attributes.Add(Element);
                 return true;
@@ -39,7 +52,7 @@ namespace Assets.ForgeSDK.Attributes
             else return false;
         }
 
-        public override bool Exists(Func<string, bool> predicate)
+        public override bool Exists(Func<AttributeInfo, bool> predicate)
         {
             if (predicate == null) return false;
 
@@ -50,9 +63,9 @@ namespace Assets.ForgeSDK.Attributes
             return false;
         }
 
-        public bool Exists(string element) => _attributes.Contains(element);
+        public bool Exists(AttributeInfo element) => _attributes.Contains(element);
 
-        public override bool Remove(string element)
+        public override bool Remove(AttributeInfo element)
         {
             if (Exists(element))
             {
@@ -62,10 +75,10 @@ namespace Assets.ForgeSDK.Attributes
             else return false;
         }
 
-        public override int Remove(Func<string, bool> condition)
+        public override int Remove(Func<AttributeInfo, bool> condition)
         {
             if (condition == null) return 0;
-            List<string> attributesToDelete = new List<string>();
+            List<AttributeInfo> attributesToDelete = new List<AttributeInfo>();
             foreach (var attribute in _attributes)
             {
                 if (condition.Invoke(attribute))
@@ -78,7 +91,7 @@ namespace Assets.ForgeSDK.Attributes
             return attributesToDelete.Count;
         }
 
-        public override int Update(Func<string, bool> predicate, Action<string> action)
+        public override int Update(Func<AttributeInfo, bool> predicate, Action<AttributeInfo> action)
         {
             if (predicate == null || action == null) return 0;
             int count = 0;

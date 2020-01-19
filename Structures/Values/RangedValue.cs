@@ -22,7 +22,7 @@ namespace ForgeSDK.Structures.Values
     /// Abstract implementation of <c>IRangedValue</c>
     /// </summary>
     /// <typeparam name="T">Type of the ranged value</typeparam>
-    [Serializable]
+    [Serializable, InlineProperty]
     public abstract class RangedValue<T> : IRangedValue<T>, ISerializationCallbackReceiver
     {
         [ShowInInspector, OdinSerialize, HideLabel, SuffixLabel("Min", true), HorizontalGroup(order: 0, GroupName = "Parameters", GroupID = "Parameters")]

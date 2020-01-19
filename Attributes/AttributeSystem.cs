@@ -15,7 +15,7 @@ namespace ForgeSDK.Attributes
 #if UNITY_EDITOR
         private IEnumerable<string> _availableAttributes => AttributeRepository.Instance.GetAllElements()
                                                                                         .Select(attribute => attribute.Name)
-                                                                                        .Except(Attributes.Select(attribute => attribute.Name));
+                                                                                        .Except(Attributes.Select(attribute => attribute.AttributeInfo.Name));
 
         [ShowInInspector, HideLabel, ValueDropdown("_availableAttributes", DropdownTitle = "Attributes availables"), TabGroup("New attribute", order: 1)]
         private string _newAttribute = string.Empty;
@@ -23,9 +23,10 @@ namespace ForgeSDK.Attributes
         [Button("Add Attribute"), TabGroup("New attribute", order: 1)]
         private void AddAttribute()
         {
-            if (!string.IsNullOrWhiteSpace(_newAttribute) && !Attributes.Exists(attribute => attribute.Name == _newAttribute))
+            var attributes = AttributeRepository.Instance.GetAllElements().ToList();
+            if (!string.IsNullOrWhiteSpace(_newAttribute) && !Attributes.Exists(attribute => attribute.AttributeInfo.Name == _newAttribute))
             {
-                Attributes.Add(new Attribute(_newAttribute, Vector2Int.zero, new AttributeInfo()));
+                Attributes.Add(new Attribute(attributes.Find(x => x.Name == _newAttribute)));
                 _newAttribute = string.Empty;
             }
         }
@@ -33,7 +34,7 @@ namespace ForgeSDK.Attributes
 
         private Dictionary<string, Attribute> _attributes = new Dictionary<string, Attribute>();
 
-        [TabGroup("Attribute", order: 0), TableList(AlwaysExpanded = true, HideToolbar = true)]
+        [TabGroup("Attribute", order: 0), TableList(AlwaysExpanded = true)]
         public List<Attribute> Attributes = new List<Attribute>();
 
         public T GetAttribute<T>(string attributeName)

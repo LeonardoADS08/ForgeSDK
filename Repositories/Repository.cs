@@ -6,6 +6,7 @@ Revision        : 1.0
 Changelog       :   
 */
 
+using Assets.ForgeSDK.Tools;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,7 +21,7 @@ namespace ForgeSDK.Repositories
     /// Abstract class for implemnet repositories
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class Repository<T> : IRepository<T>
+    public abstract class Repository<T> : IRepository<T> where T : ICopyable<T>
     {
         protected abstract IEnumerable<T> _items { get; }
         protected abstract string _fileName { get; }

@@ -9,16 +9,14 @@ using UnityEngine;
 
 namespace ForgeSDK.Entities
 {
-    [RequireComponent(typeof(StatSystem), typeof(AttributeSystem))]
+    [RequireComponent(typeof(AttributeSystem))]
     public abstract class Entitiy : MonoBehaviour
     {
         private void OnValidate()
         {
-            Stats = GetComponent<StatSystem>();
             Attributes = GetComponent<AttributeSystem>();
         }
 
-        public StatSystem Stats;
         public AttributeSystem Attributes;
     }
 }

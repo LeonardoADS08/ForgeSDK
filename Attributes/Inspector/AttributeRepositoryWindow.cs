@@ -17,6 +17,8 @@ namespace ForgeSDK.Attributes.Inspector
         public static void ShowWindow()
         {
             _instance = GetWindow<AttributeRepositoryWindow>("Attribute Repository");
+            _instance.maxSize = new Vector2(1200, 600);
+            _instance.minSize = _instance.maxSize;
             _instance.LoadData();
         }
 

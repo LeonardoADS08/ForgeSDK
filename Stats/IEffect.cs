@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ForgeSDK.Stats
 {
-    public interface IEffect
+    public interface IEffect<T>
     {
         EffectStatus Status { get; }
         EffectType Type { get; }
-        float Tick(float time, float deltaTime);
+        T Tick(float time, float deltaTime);
         void Start();
         void Stop();
         EventHandler Started { get; set; }

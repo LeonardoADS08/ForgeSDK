@@ -1,5 +1,6 @@
 ﻿using ForgeSDK.Extensions.Linq;
 using ForgeSDK.Repositories;
+using ForgeSDK.Stats;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,11 +32,13 @@ namespace ForgeSDK.Attributes
         private static List<AttributeInfo> ATTRIBUTES => new List<AttributeInfo>()
         {
             BOOL_IS_INVULNERABLE,
-            BOOL_IS_SHOOTING
+            BOOL_IS_SHOOTING,
+            INT_STAT_CHARACTER_HEALTH
         };
 
         public static readonly AttributeInfo BOOL_IS_INVULNERABLE = new AttributeInfo("Invulnerable", false, AttributeType.Bool);
         public static readonly AttributeInfo BOOL_IS_SHOOTING = new AttributeInfo("Is shooting", false, AttributeType.Bool);
+        public static readonly AttributeInfo INT_STAT_CHARACTER_HEALTH = new AttributeInfo("Health", new IntStat(), AttributeType.IntStat);
         #endregion
 
         protected HashSet<AttributeInfo> _attributes = new HashSet<AttributeInfo>();

@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace ForgeSDK.Stats
 {
-    public enum EffectType
+    public interface IStatModifier<T>
     {
-        Neutral = 0,
-        Positive = 1,
-        Negative = 2
+        T Modify(T value);
     }
 }

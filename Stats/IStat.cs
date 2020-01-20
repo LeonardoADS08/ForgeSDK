@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace ForgeSDK.Stats
 {
-    public enum EffectType
+    public interface IStat<T>
     {
-        Neutral = 0,
-        Positive = 1,
-        Negative = 2
+        void ApplyEffect(IEffect<T> effect);
+        void UpdateEffects(float time, float deltaTime);
     }
 }

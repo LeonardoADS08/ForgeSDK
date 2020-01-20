@@ -10,7 +10,7 @@ using UnityEngine;
 namespace ForgeSDK.Attributes
 {
 
-    public class AttributeSystem : MonoBehaviour
+    public sealed class AttributeSystem : MonoBehaviour
     {
 #if UNITY_EDITOR
         private IEnumerable<string> _availableAttributes => AttributeRepository.Instance.GetAllElements()

@@ -10,7 +10,7 @@ using UnityEngine;
 namespace ForgeSDK.Entities
 {
     [RequireComponent(typeof(AttributeSystem))]
-    public abstract class Entitiy : MonoBehaviour
+    public abstract class Entity : MonoBehaviour
     {
         private void OnValidate()
         {

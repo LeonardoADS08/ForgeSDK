@@ -10,14 +10,15 @@ using UnityEngine;
 
 namespace ForgeSDK.Attributes.Inspector
 {
-    public class AttributeRepositoryWindowElement
+    [InlineProperty, Serializable]
+    internal sealed class AttributeRepositoryWindowElement
     {
         [HideLabel]
         public string Name;
 
         public AttributeType Type;
 
-        [HideInInspector]
+        [HideInInspector, HideLabel, InlineProperty]
         public object Value;
 
 #if UNITY_EDITOR
@@ -59,13 +60,17 @@ namespace ForgeSDK.Attributes.Inspector
         private FloatRangedValue _floatRangedValue = new FloatRangedValue();
         public bool IsFloatRangedValue() => Type == AttributeType.FloatRangedValue;
 
-        [ShowInInspector, SerializeField, ShowIf("IsStat"), HorizontalGroup(GroupID = "Default value", Order = 0), HideLabel, InlineProperty]
-        private Stat _statValue = new Stat();
-        public bool IsStat() => Type == AttributeType.Stat;
+        [ShowInInspector, SerializeField, ShowIf("IsIntStat"), HorizontalGroup(GroupID = "Value", Order = 0), HideLabel]
+        private IntStat _intStatValue = new IntStat();
+        public bool IsIntStat() => Type == AttributeType.IntStat;
+
+        [ShowInInspector, SerializeField, ShowIf("IsFloatStat"), HorizontalGroup(GroupID = "Value", Order = 0), HideLabel]
+        private FloatStat _floatStatValue = new FloatStat();
+        public bool IsFloatStat() => Type == AttributeType.FloatStat;
 
         [ShowInInspector, ShowIf("NotSupportedType"), HorizontalGroup(GroupID = "Default value", Order = 0), HideLabel, ReadOnly]
         private string _notSupportedType = "Not supported Type";
-        public bool NotSupportedType() => !IsBoolean() && !IsString() && !IsInt() && !IsFloat() && !IsVector2() && !IsVector3() && !IsColor() && !IsIntRangedValue() && !IsFloatRangedValue() && !IsStat();
+        public bool NotSupportedType() => !IsBoolean() && !IsString() && !IsInt() && !IsFloat() && !IsVector2() && !IsVector3() && !IsColor() && !IsIntRangedValue() && !IsFloatRangedValue() && !IsIntStat() && !IsFloatStat();
 
 #pragma warning restore CS0414, CS0649
 #endif
@@ -123,8 +128,11 @@ namespace ForgeSDK.Attributes.Inspector
                 case AttributeType.FloatRangedValue:
                     Value = _floatRangedValue;
                     break;
-                case AttributeType.Stat:
-                    Value = _statValue;
+                case AttributeType.IntStat:
+                    Value = _intStatValue;
+                    break;
+                case AttributeType.FloatStat:
+                    Value = _floatStatValue;
                     break;
                 default:
                     break;

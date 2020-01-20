@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ForgeSDK.Stats.Effects
 {
-    public class LinearEffect : Effect
+    public class LinearEffect : Effect<float>
     {
         private float _startTime;
         private float _lastProportion = 0.0f;

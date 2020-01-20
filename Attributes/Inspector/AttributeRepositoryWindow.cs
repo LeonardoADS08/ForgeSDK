@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace ForgeSDK.Attributes.Inspector
 {
-    public class AttributeRepositoryWindow : OdinEditorWindow
+    internal sealed class AttributeRepositoryWindow : OdinEditorWindow
     {
         private static AttributeRepositoryWindow _instance;
 

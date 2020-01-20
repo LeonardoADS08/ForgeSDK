@@ -11,25 +11,20 @@ using UnityEngine;
 namespace ForgeSDK.Stats
 {
     [Serializable, InlineProperty]
-    public class Stat : FloatRangedValue
+    public sealed class FloatStat : FloatRangedValue, IStat<float>
     {
-        [SerializeField, ReadOnly, HideLabel, SuffixLabel("Stat name", true)]
-        private string _name = string.Empty;
+        public List<IEffect<float>> Effects = new List<IEffect<float>>();
+        public List<IStatModifier<float>> Modifier = new List<IStatModifier<float>>();
 
-        public string Name { get => _name; }
+        public FloatStat() : base() { }
 
-        private List<IEffect> _effects = new List<IEffect>();
-
-        public Stat() : base() { }
-        public Stat(string name) : base() => _name = name;
-        public Stat(float value, float minValue, float maxValue) : base(value, minValue, maxValue) { }
-        public Stat(string name, float value, float minValue, float maxValue) : base(value, minValue, maxValue) => _name = name;
+        public FloatStat(float value, float minValue, float maxValue) : base(value, minValue, maxValue) { }
 
         public void UpdateEffects(float time, float deltaTime)
         {
-            for (int i = 0; i < _effects.Count; i++)
+            for (int i = 0; i < Effects.Count; i++)
             {
-                var effect = _effects[i];
+                var effect = Effects[i];
                 switch (effect.Status)
                 {
                     case EffectStatus.Ready:
@@ -39,7 +34,7 @@ namespace ForgeSDK.Stats
                         this.ApplyVariation(effect.Tick(time, deltaTime));
                         break;
                     case EffectStatus.Finished:
-                        _effects.RemoveAt(i);
+                        Effects.RemoveAt(i);
                         i--;
                         break;
                     default:
@@ -48,7 +43,14 @@ namespace ForgeSDK.Stats
             }
         }
 
-        public void ApplyEffect(IEffect effect) => _effects.Add(effect);
+        public void ApplyEffect(IEffect<float> effect) => Effects.Add(effect);
+
+        protected override float ModifyValue(float quantity)
+        {
+            for (int i = 0; i < Modifier.Count; i++)
+                quantity = Modifier[i].Modify(quantity);
+            return base.ModifyValue(quantity);
+        }
 
     }
 }

@@ -12,7 +12,7 @@ using UnityEngine;
 namespace ForgeSDK.Attributes
 {
     [Serializable]
-    public class AttributeInfo : ICopyable<AttributeInfo>, IEquatable<AttributeInfo>
+    public sealed class AttributeInfo : ICopyable<AttributeInfo>, IEquatable<AttributeInfo>
     {
         public string Name;
         [HideInInspector]
@@ -54,18 +54,21 @@ namespace ForgeSDK.Attributes
         private IntRangedValue _intRangedValue = new IntRangedValue();
         public bool IsIntRangedValue() => Type == AttributeType.IntRangedValue;
 
-
         [ShowInInspector, SerializeField, ShowIf("IsFloatRangedValue"), HorizontalGroup(GroupID = "Value", Order = 0), HideLabel]
         private FloatRangedValue _floatRangedValue = new FloatRangedValue();
         public bool IsFloatRangedValue() => Type == AttributeType.FloatRangedValue;
 
-        [ShowInInspector, SerializeField, ShowIf("IsStat"), HorizontalGroup(GroupID = "Value", Order = 0), HideLabel]
-        private Stat _statValue = new Stat();
-        public bool IsStat() => Type == AttributeType.Stat;
+        [ShowInInspector, SerializeField, ShowIf("IsIntStat"), HorizontalGroup(GroupID = "Value", Order = 0), HideLabel]
+        private IntStat _intStatValue = new IntStat();
+        public bool IsIntStat() => Type == AttributeType.IntStat;
+
+        [ShowInInspector, SerializeField, ShowIf("IsFloatStat"), HorizontalGroup(GroupID = "Value", Order = 0), HideLabel]
+        private FloatStat _floatStatValue = new FloatStat();
+        public bool IsFloatStat() => Type == AttributeType.FloatStat;
 
         [ShowInInspector, ShowIf("NotSupportedType"), HorizontalGroup(GroupID = "Value", Order = 0), HideLabel, ReadOnly]
         private string _notSupportedType = "Not supported Type";
-        public bool NotSupportedType() => !IsBoolean() && !IsString() && !IsInt() && !IsFloat() && !IsVector2() && !IsVector3() && !IsColor() && !IsIntRangedValue() && !IsFloatRangedValue() && !IsStat();
+        public bool NotSupportedType() => !IsBoolean() && !IsString() && !IsInt() && !IsFloat() && !IsVector2() && !IsVector3() && !IsColor() && !IsIntRangedValue() && !IsFloatRangedValue() && !IsIntStat() && !IsFloatStat();
 
 #pragma warning restore CS0414, CS0649
 #endif

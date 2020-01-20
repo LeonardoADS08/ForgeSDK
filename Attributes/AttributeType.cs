@@ -17,6 +17,7 @@ namespace ForgeSDK.Attributes
         Color = 6,
         IntRangedValue = 7,
         FloatRangedValue = 8,
-        Stat = 9
+        FloatStat = 9,
+        IntStat = 10
     }
 }

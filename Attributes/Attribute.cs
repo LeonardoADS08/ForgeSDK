@@ -76,6 +76,8 @@ namespace ForgeSDK.Attributes
         private string _notSupportedType = "Not supported Type";
         public bool NotSupportedType() => !IsBoolean() && !IsString() && !IsInt() && !IsFloat() && !IsVector2() && !IsVector3() && !IsColor() && !IsIntRangedValue() && !IsFloatRangedValue() && !IsIntStat() && !IsFloatStat();
 
+#pragma warning restore CS0414, CS0649
+#endif
         public void OnBeforeSerialize() { }
 
         public void OnAfterDeserialize()
@@ -88,10 +90,6 @@ namespace ForgeSDK.Attributes
             }
 #endif
         }
-
-#pragma warning restore CS0414, CS0649
-#endif
-
 
         public Attribute(AttributeInfo attributeInfo)
         {

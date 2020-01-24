@@ -1,4 +1,5 @@
 ﻿using ForgeSDK.Structures.Values;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace ForgeSDK.Stats
 {
+    [Serializable, InlineProperty]
     public sealed class IntStat : IntRangedValue, IStat<int>
     {
         public List<IEffect<int>> Effects = new List<IEffect<int>>();

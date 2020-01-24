@@ -12,8 +12,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.AddressableAssets;
-using UnityEditor.AddressableAssets.Settings;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -54,8 +52,8 @@ namespace ForgeSDK.AssetManagement
         }
 
         private bool InPlayMode => Application.isPlaying;
-        private AddressableRepository Repository => AddressableRepository.Instance;
 #endif
+        private AddressableRepository Repository => AddressableRepository.Instance;
 
         /// <summary>
         /// Instantiate an GameObject 

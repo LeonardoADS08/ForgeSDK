@@ -1,6 +1,6 @@
-﻿using Assets.ForgeSDK.Tools;
-using ForgeSDK.Stats;
+﻿using ForgeSDK.Stats;
 using ForgeSDK.Structures.Values;
+using ForgeSDK.Tools;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;

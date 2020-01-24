@@ -6,7 +6,7 @@ Revision        : 1.0
 Changelog       :   
 */
 
-using Assets.ForgeSDK.Tools;
+using ForgeSDK.Tools;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,14 +26,14 @@ namespace ForgeSDK.Repositories
         protected abstract IEnumerable<T> _items { get; }
         protected abstract string _fileName { get; }
 
-        protected string _fileLocation => Path.Combine(Application.persistentDataPath, _fileName);
+        protected virtual string _fileLocation => Path.Combine(Application.streamingAssetsPath, _fileName);
 
         public IEnumerable<T> GetAllElements() => _items;
         public T GetElement(Func<T, bool> predicate) => _items.Where(predicate).FirstOrDefault();
 
         public abstract bool Save();
         public abstract bool Load();
-        public abstract bool Add(T Element);
+        public abstract bool Add(T element);
         public abstract bool Remove(T element);
         public abstract int Remove(Func<T, bool> condition);
         public abstract int Update(Func<T, bool> predicate, Action<T> action);

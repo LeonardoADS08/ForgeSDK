@@ -6,6 +6,7 @@ Revision        : 1.0.0
 Changelog       :   
 
 */
+#if UNITY_EDITOR
 
 using ForgeSDK.AssetManagement.Repository;
 using Sirenix.OdinInspector;
@@ -116,3 +117,4 @@ namespace ForgeSDK.AssetManagement
         }
     }
 }
+#endif

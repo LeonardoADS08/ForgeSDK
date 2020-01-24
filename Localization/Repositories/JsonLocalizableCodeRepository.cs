@@ -8,19 +8,29 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace ForgeSDK.Attributes
+namespace ForgeSDK.Localization.Repositories
 {
-    public class JsonAttributeRepository : AttributeRepository
+    public class JsonLocalizableCodeRepository : LocalizableCodeRepository
     {
-        protected override string _fileName => "attributes.json";
+        protected override string _fileName => "localizableCodes.json";
+
+        public JsonLocalizableCodeRepository()
+        {
+            if (!Directory.Exists(Path.GetDirectoryName(_fileLocation)))
+                Directory.CreateDirectory(Path.GetDirectoryName(_fileLocation));
+            if (!File.Exists(_fileLocation))
+                File.Create(_fileLocation);
+        }
 
         public override bool Save()
         {
             try
             {
+                if (!File.Exists(_fileLocation)) return false;
+
                 using (StreamWriter writer = new StreamWriter(_fileLocation, false))
                 {
-                    string json = JsonConvert.SerializeObject(_attributes.ToList());
+                    string json = JsonConvert.SerializeObject(_localizableCodes);
                     writer.Write(json);
                     writer.Flush();
                 }
@@ -43,15 +53,15 @@ namespace ForgeSDK.Attributes
                 using (StreamReader reader = new StreamReader(_fileLocation))
                 {
                     string json = reader.ReadToEnd();
-                    var elements = JsonConvert.DeserializeObject<List<AttributeInfo>>(json);
+                    var elements = JsonConvert.DeserializeObject<List<LocalizableCode>>(json);
                     if (elements != null)
                     {
-                        _attributes = new HashSet<AttributeInfo>(elements);
+                        _localizableCodes = new HashSet<LocalizableCode>(elements);
                         return true;
                     }
                     else
                     {
-                        _attributes = new HashSet<AttributeInfo>();
+                        _localizableCodes = new HashSet<LocalizableCode>();
                         return false;
                     }
                 }

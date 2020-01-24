@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.ForgeSDK.Tools
+namespace ForgeSDK.Tools
 {
     /// <summary>
     /// Common interface to copyable objects

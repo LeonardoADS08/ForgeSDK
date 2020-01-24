@@ -44,8 +44,6 @@ namespace ForgeSDK.Attributes
         protected HashSet<AttributeInfo> _attributes = new HashSet<AttributeInfo>();
         protected override IEnumerable<AttributeInfo> _items => _attributes;
 
-        protected override string _fileName => throw new NotImplementedException();
-
         public AttributeRepository()
         {
             Load();

@@ -1,4 +1,5 @@
-﻿using ForgeSDK.Stats;
+﻿#if UNITY_EDITOR
+using ForgeSDK.Stats;
 using ForgeSDK.Structures.Values;
 using Sirenix.OdinInspector;
 using System;
@@ -170,3 +171,4 @@ namespace ForgeSDK.Attributes.Inspector
         }
     }
 }
+#endif

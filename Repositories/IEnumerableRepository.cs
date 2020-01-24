@@ -1,5 +1,5 @@
-﻿using Assets.ForgeSDK.Tools;
-using ForgeSDK.Extensions.Linq;
+﻿using ForgeSDK.Extensions.Linq;
+using ForgeSDK.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +47,7 @@ namespace ForgeSDK.Repositories
             if (predicate == null || action == null) return 0;
             int count = 0;
             _items.Where(item => predicate(item))
+                  .ToList()
                   .ForEach(original =>
                   {
                       var modified = original;

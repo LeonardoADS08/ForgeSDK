@@ -1,4 +1,6 @@
-﻿using ForgeSDK.Extensions.Linq;
+﻿#if UNITY_EDITOR
+
+using ForgeSDK.Extensions.Linq;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using System;
@@ -52,3 +54,4 @@ namespace ForgeSDK.Attributes.Inspector
         }
     }
 }
+#endif

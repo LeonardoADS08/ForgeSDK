@@ -5,6 +5,7 @@ File            : AssetManagement/Inspector/AddressableRepositoryWindow.cs
 Revision        : 1.0.0
 Changelog       :   
 */
+#if UNITY_EDITOR
 
 using ForgeSDK.AssetManagement.Repository;
 using ForgeSDK.Extensions.Linq;
@@ -84,3 +85,5 @@ namespace ForgeSDK.AssetManagement
         }
     }
 }
+
+#endif

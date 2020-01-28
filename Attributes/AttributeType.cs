@@ -18,6 +18,7 @@ namespace ForgeSDK.Attributes
         IntRangedValue = 7,
         FloatRangedValue = 8,
         FloatStat = 9,
-        IntStat = 10
+        IntStat = 10,
+        Unknown = 11
     }
 }

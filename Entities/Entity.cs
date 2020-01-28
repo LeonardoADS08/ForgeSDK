@@ -12,7 +12,7 @@ namespace ForgeSDK.Entities
     [RequireComponent(typeof(AttributeSystem))]
     public abstract class Entity : MonoBehaviour
     {
-        private void OnValidate()
+        protected virtual void OnValidate()
         {
             Attributes = GetComponent<AttributeSystem>();
         }

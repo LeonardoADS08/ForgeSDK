@@ -11,7 +11,7 @@ using UnityEngine;
 namespace ForgeSDK.Stats
 {
     [Serializable, InlineProperty]
-    public sealed class FloatStat : FloatRangedValue, IStat<float>
+    public class FloatStat : FloatRangedValue, IStat<float>
     {
         public List<IEffect<float>> Effects = new List<IEffect<float>>();
         public List<IStatModifier<float>> Modifier = new List<IStatModifier<float>>();

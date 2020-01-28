@@ -25,11 +25,11 @@ namespace ForgeSDK.Structures.Values
     [Serializable, InlineProperty]
     public abstract class RangedValue<T> : IRangedValue<T>, ISerializationCallbackReceiver
     {
-        [ShowInInspector, OdinSerialize, HideLabel, SuffixLabel("Min", true), HorizontalGroup(order: 0, GroupName = "Parameters", GroupID = "Parameters")]
+        [ShowInInspector, SerializeField, HideLabel, SuffixLabel("Min", true), HorizontalGroup(order: 0, GroupName = "Parameters", GroupID = "Parameters")]
         protected T _min;
-        [ShowInInspector, OdinSerialize, HideLabel, SuffixLabel("Value", true), HorizontalGroup(order: 1, GroupName = "Parameters", GroupID = "Parameters")]
+        [ShowInInspector, SerializeField, HideLabel, SuffixLabel("Value", true), HorizontalGroup(order: 1, GroupName = "Parameters", GroupID = "Parameters")]
         protected T _value;
-        [ShowInInspector, OdinSerialize, HideLabel, SuffixLabel("Max", true), HorizontalGroup(order: 2, GroupName = "Parameters", GroupID = "Parameters")]
+        [ShowInInspector, SerializeField, HideLabel, SuffixLabel("Max", true), HorizontalGroup(order: 2, GroupName = "Parameters", GroupID = "Parameters")]
         protected T _max;
         public virtual T Value => _value;
 

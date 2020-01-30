@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ForgeAPI.FSM
+namespace ForgeSDK.FSM
 {
     /// <summary>
     /// Non-generic state interface. <para></para>

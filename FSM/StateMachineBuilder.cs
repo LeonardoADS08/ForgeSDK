@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ForgeAPI.FSM
+namespace ForgeSDK.FSM
 {
     /// <summary>
     /// Entry point for fluent API for constructing states. <para></para>

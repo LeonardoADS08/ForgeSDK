@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace ForgeSDK.Extensions.Vector.Angles
+namespace ForgeSDK.Extensions.Vector
 {
     public static class ForgeVectorExtension
     {

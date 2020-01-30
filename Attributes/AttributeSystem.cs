@@ -87,7 +87,7 @@ namespace ForgeSDK.Attributes
         [OdinSerialize, HideInInspector]
         private Dictionary<string, AttributeInfo> _attributes = new Dictionary<string, AttributeInfo>();
 
-        public void AddAttribute(AttributeInfo attributeInfo)
+        public bool AddAttribute(AttributeInfo attributeInfo)
         {
             if (!_attributes.ContainsKey(attributeInfo.Name))
             {
@@ -97,41 +97,51 @@ namespace ForgeSDK.Attributes
                 {
                     case AttributeType.Bool:
                         _boolAttributes.Add(new Attribute<bool>(attributeInfo));
-                        break;
+                        return true;
                     case AttributeType.String:
                         _stringAttributes.Add(new Attribute<string>(attributeInfo));
-                        break;
+                        return true;
                     case AttributeType.Int:
                         _intAttributes.Add(new Attribute<int>(attributeInfo));
-                        break;
+                        return true;
                     case AttributeType.Float:
                         _floatAttributes.Add(new Attribute<float>(attributeInfo));
-                        break;
+                        return true;
                     case AttributeType.Vector2:
                         _vector2Attributes.Add(new Attribute<Vector2>(attributeInfo));
-                        break;
+                        return true;
                     case AttributeType.Vector3:
                         _vector3Attributes.Add(new Attribute<Vector3>(attributeInfo));
-                        break;
+                        return true;
                     case AttributeType.Color:
                         _colorAttributes.Add(new Attribute<Color>(attributeInfo));
-                        break;
+                        return true;
                     case AttributeType.IntRangedValue:
                         _intRangedValueAttributes.Add(new Attribute<IntRangedValue>(attributeInfo));
-                        break;
+                        return true;
                     case AttributeType.FloatRangedValue:
                         _floatRangedValueAttributes.Add(new Attribute<FloatRangedValue>(attributeInfo));
-                        break;
+                        return true;
                     case AttributeType.FloatStat:
                         _floatStatAttributes.Add(new Attribute<FloatStat>(attributeInfo));
-                        break;
+                        return true;
                     case AttributeType.IntStat:
                         _intStatAttributes.Add(new Attribute<IntStat>(attributeInfo));
-                        break;
+                        return true;
                     default:
-                        break;
+                        return false;
                 }
             }
+            else return false;
+        }
+
+        public bool AddAttribute(string attributeName)
+        {
+            if (_attributes.ContainsKey(attributeName)) return false;
+
+            var attributeInfo = AttributeRepository.Instance.GetElement(att => att.Name == attributeName);
+            if (attributeInfo != null) return AddAttribute(attributeInfo);
+            else  return false;
         }
 
         public Attribute<T> GetAttribute<T>(string attributeName)

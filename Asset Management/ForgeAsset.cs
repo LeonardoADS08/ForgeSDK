@@ -23,7 +23,7 @@ namespace ForgeSDK.AssetManagement
     /// <typeparam name="T"></typeparam>
 
     [Serializable, InlineProperty]
-    public class ForgeAsset<T> where T : UnityEngine.Object
+    public class ForgeAsset<T> : ISerializationCallbackReceiver where T : UnityEngine.Object 
     {
 #if UNITY_EDITOR
         [OnValueChanged("UpdateReference")]
@@ -45,6 +45,8 @@ namespace ForgeSDK.AssetManagement
 
         private void UpdateReference()
         {
+            if (Key == null) return;
+
             if (Repository.Exists(Key))
                 Asset = Repository.GetByKey(Key).Reference.editorAsset;
             else
@@ -78,5 +80,14 @@ namespace ForgeSDK.AssetManagement
                 };
             }
         }
+
+        public void OnBeforeSerialize()
+        {
+#if UNITY_EDITOR
+            UpdateReference();
+#endif
+        }
+
+        public void OnAfterDeserialize() { }
     }
 }

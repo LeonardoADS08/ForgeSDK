@@ -12,6 +12,11 @@ namespace ForgeSDK.Attributes
 {
     public class JsonAttributeRepository : AttributeRepository
     {
+        public JsonAttributeRepository() : base()
+        {
+
+        }
+
         protected override string _fileName => "attributes.json";
 
         public override bool Save()

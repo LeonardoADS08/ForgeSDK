@@ -31,6 +31,7 @@ namespace ForgeSDK.Structures.Values
         protected T _value;
         [ShowInInspector, SerializeField, HideLabel, SuffixLabel("Max", true), HorizontalGroup(order: 2, GroupName = "Parameters", GroupID = "Parameters")]
         protected T _max;
+
         public virtual T Value => _value;
 
         public virtual T MinValue

@@ -173,6 +173,7 @@ namespace ForgeSDK.AssetManagement.Repository
             int count = 0;
             _repository.Values
             .Where(item => predicate(item))
+            .ToList()
             .ForEach(original =>
             {
                 var modified = original.Copy();
